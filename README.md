@@ -1,9 +1,5 @@
 # ENEM Admissions Fairness
 
-Code accompanying the final paper **"TODO: paper title"**.
-
-The paper asks whether machine-learning admissions systems **reproduce or exacerbate demographic inequalities** relative to a benchmark selection process. It uses the 2019 ENEM microdata published by INEP, Brazil's national education statistics institute.
-
 ## Overview
 
 Machine-learning models (logistic regression and gradient boosting) are trained on ENEM 2019 data. Their scores are turned into admission decisions with a top-K rule, which selects the same share of candidates as the benchmark. Selection outcomes are then compared across demographic groups, including race, income, sex and school type.
