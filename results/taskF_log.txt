@@ -1,0 +1,84 @@
+
+======================================================================
+TASK F - INCOME-STRATIFIED RACE INCREMENT (B3->B4, K=10%)
+======================================================================
+
+F1: Q006 cumulative shares by band:
+Q006
+A    0.0434
+B    0.2931
+C    0.5508
+D    0.6496
+E    0.7463
+F    0.7916
+G    0.8528
+H    0.8914
+I    0.9203
+J    0.9359
+K    0.9468
+L    0.9554
+M    0.9638
+N    0.9746
+O    0.9836
+P    0.9914
+Q    1.0000
+
+Nearest-to-1/3 band: B (cum=0.2931); nearest-to-2/3 band: D (cum=0.6496)
+
+Tercile band assignment: Low=['A', 'B']  Mid=['C', 'D']  High=['E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q']
+  Low   N=36,313 (29.31% of analytic sample)
+  Mid   N=44,155 (35.64% of analytic sample)
+  High  N=43,411 (35.04% of analytic sample)
+
+Test-set tercile sizes:
+  Low   N=7,316
+  Mid   N=8,842
+  High  N=8,618
+
+F2: global benchmark_top10 (from Task A, full N=123,879 ranking population) restricted to test: 2,477 of 24,776 selected (10.00%, target was 10%).
+  Reused primary top-K-within-test selection for B3/logistic_regression: 2,477 selected (matches main_grid.csv's own test evaluation).
+  Reused primary top-K-within-test selection for B3/gradient_boosting: 2,477 selected (matches main_grid.csv's own test evaluation).
+  Reused primary top-K-within-test selection for B4/logistic_regression: 2,477 selected (matches main_grid.csv's own test evaluation).
+  Reused primary top-K-within-test selection for B4/gradient_boosting: 2,477 selected (matches main_grid.csv's own test evaluation).
+
+==================== Tercile = Low ====================
+  N: White=1,500  Black/Pardo=5,563  benchmark_positive: White=52  BP=87
+  F2 benchmark gap (White vs BP), measured within tercile: White=3.47%  BP=1.56%  gap=+1.90pp
+  [logistic_regression] B3 gap=+0.16pp (White=0.20%,BP=0.04%)  B4 gap=+0.23pp (White=0.27%,BP=0.04%)  increment=+0.07pp  95%CI=[+0.00,+0.27]
+  [gradient_boosting] B3 gap=+0.40pp (White=0.40%,BP=0.00%)  B4 gap=+0.52pp (White=0.53%,BP=0.02%)  increment=+0.12pp  95%CI=[-0.04,+0.32]
+
+==================== Tercile = Mid ====================
+  N: White=2,788  Black/Pardo=5,798  benchmark_positive: White=192  BP=233
+  F2 benchmark gap (White vs BP), measured within tercile: White=6.89%  BP=4.02%  gap=+2.87pp
+  [logistic_regression] B3 gap=+1.24pp (White=1.87%,BP=0.62%)  B4 gap=+2.54pp (White=2.94%,BP=0.40%)  increment=+1.30pp  95%CI=[+0.89,+1.71]
+  [gradient_boosting] B3 gap=+1.08pp (White=1.61%,BP=0.53%)  B4 gap=+1.83pp (White=2.30%,BP=0.47%)  increment=+0.75pp  95%CI=[+0.41,+1.11]
+
+==================== Tercile = High ====================
+  N: White=4,616  Black/Pardo=3,784  benchmark_positive: White=1268  BP=582
+  F2 benchmark gap (White vs BP), measured within tercile: White=27.47%  BP=15.38%  gap=+12.09pp
+  [logistic_regression] B3 gap=+18.26pp (White=35.81%,BP=17.55%)  B4 gap=+23.20pp (White=37.87%,BP=14.67%)  increment=+4.94pp  95%CI=[+4.27,+5.63]
+  [gradient_boosting] B3 gap=+17.73pp (White=35.70%,BP=17.97%)  B4 gap=+21.97pp (White=37.35%,BP=15.38%)  increment=+4.24pp  95%CI=[+3.44,+5.05]
+
+----------------------------------------------------------------------
+F5: do increments differ across terciles beyond sampling variation?
+----------------------------------------------------------------------
+
+  logistic_regression:
+    Low   increment=+0.07pp  95% CI=[+0.00, +0.27]
+    Mid   increment=+1.30pp  95% CI=[+0.89, +1.71]
+    High  increment=+4.94pp  95% CI=[+4.27, +5.63]
+    Low vs Mid: CIs DO NOT overlap -- suggestive evidence of a real difference
+    Mid vs High: CIs DO NOT overlap -- suggestive evidence of a real difference
+    Low vs High: CIs DO NOT overlap -- suggestive evidence of a real difference
+
+  gradient_boosting:
+    Low   increment=+0.12pp  95% CI=[-0.04, +0.32]
+    Mid   increment=+0.75pp  95% CI=[+0.41, +1.11]
+    High  increment=+4.24pp  95% CI=[+3.44, +5.05]
+    Low vs Mid: CIs DO NOT overlap -- suggestive evidence of a real difference
+    Mid vs High: CIs DO NOT overlap -- suggestive evidence of a real difference
+    Low vs High: CIs DO NOT overlap -- suggestive evidence of a real difference
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_income_strata.csv (6 rows).
+
+Task F total elapsed: 1s

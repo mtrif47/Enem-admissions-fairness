@@ -1,0 +1,308 @@
+
+======================================================================
+TASK D1 - CAPACITY ROBUSTNESS (K=5%, K=20%, hyperparameters reused from K=10%)
+======================================================================
+
+Loaded primary hyperparameters for 6 blocks from /Users/miatrifunovic/Downloads/microdados_enem_2019/results/main_grid.csv.
+
+==================== K = 5% ====================
+  local k (floor(K*N_test)) = 1,238   global-in-test bench count = 1,288
+  [B1/logistic_regression] gap_local=+2.80pp  gap_global=+2.83pp  diff=+0.03pp
+  [B1/gradient_boosting] gap_local=+3.05pp  gap_global=+3.08pp  diff=+0.03pp
+  [B2/logistic_regression] gap_local=+3.74pp  gap_global=+3.83pp  diff=+0.09pp
+  [B2/gradient_boosting] gap_local=+3.28pp  gap_global=+3.27pp  diff=-0.01pp
+  [B3/logistic_regression] gap_local=+7.83pp  gap_global=+7.86pp  diff=+0.04pp
+  [B3/gradient_boosting] gap_local=+7.38pp  gap_global=+7.29pp  diff=-0.09pp
+  [B4/logistic_regression] gap_local=+9.03pp  gap_global=+9.14pp  diff=+0.11pp
+  [B4/gradient_boosting] gap_local=+8.11pp  gap_global=+8.12pp  diff=+0.01pp
+  [B5/logistic_regression] gap_local=+7.83pp  gap_global=+7.83pp  diff=+0.00pp
+  [B5/gradient_boosting] gap_local=+7.42pp  gap_global=+7.40pp  diff=-0.02pp
+  [B6/logistic_regression] gap_local=+8.98pp  gap_global=+9.13pp  diff=+0.15pp
+  [B6/gradient_boosting] gap_local=+8.12pp  gap_global=+8.16pp  diff=+0.03pp
+
+==================== K = 20% ====================
+  local k (floor(K*N_test)) = 4,955   global-in-test bench count = 4,954
+  [B1/logistic_regression] gap_local=+14.34pp  gap_global=+14.23pp  diff=-0.11pp
+  [B1/gradient_boosting] gap_local=+12.60pp  gap_global=+12.56pp  diff=-0.04pp
+  [B2/logistic_regression] gap_local=+14.94pp  gap_global=+15.00pp  diff=+0.06pp
+  [B2/gradient_boosting] gap_local=+14.29pp  gap_global=+14.13pp  diff=-0.16pp
+  [B3/logistic_regression] gap_local=+21.93pp  gap_global=+22.13pp  diff=+0.21pp
+  [B3/gradient_boosting] gap_local=+22.00pp  gap_global=+22.06pp  diff=+0.06pp
+  [B4/logistic_regression] gap_local=+26.51pp  gap_global=+26.57pp  diff=+0.06pp
+  [B4/gradient_boosting] gap_local=+24.95pp  gap_global=+24.98pp  diff=+0.03pp
+  [B5/logistic_regression] gap_local=+21.99pp  gap_global=+22.05pp  diff=+0.05pp
+  [B5/gradient_boosting] gap_local=+21.81pp  gap_global=+21.84pp  diff=+0.03pp
+  [B6/logistic_regression] gap_local=+26.54pp  gap_global=+26.58pp  diff=+0.04pp
+  [B6/gradient_boosting] gap_local=+24.73pp  gap_global=+24.71pp  diff=-0.02pp
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_capacity.csv (48 rows).
+Appended score records for bootstrap; robust_all_scores.parquet now has 1189248 rows.
+
+D1 total elapsed: 34s
+
+======================================================================
+TASK D2 - COMPOSITE SCHEME ROBUSTNESS (blocks B3/B4, K=10%, hyperparameters reused from primary)
+======================================================================
+
+=============== scheme = ufs_eng_computacao ===============
+  composite mean=528.2861 sd=93.1462  train positives=7,432  test positives=2,477
+  [B3/logistic_regression] gap=+14.37pp  ratio=4.05  D=+3.54pp  overlap@K=0.4845
+  [B3/gradient_boosting] gap=+14.39pp  ratio=4.07  D=+3.56pp  overlap@K=0.4917
+  [B4/logistic_regression] gap=+16.69pp  ratio=5.34  D=+5.85pp  overlap@K=0.4909
+  [B4/gradient_boosting] gap=+16.27pp  ratio=5.09  D=+5.43pp  overlap@K=0.4974
+
+=============== scheme = ufs_medicina ===============
+  composite mean=516.5210 sd=82.1985  train positives=7,432  test positives=2,477
+  [B3/logistic_regression] gap=+14.60pp  ratio=4.16  D=+3.59pp  overlap@K=0.4913
+  [B3/gradient_boosting] gap=+14.24pp  ratio=3.98  D=+3.23pp  overlap@K=0.4982
+  [B4/logistic_regression] gap=+16.75pp  ratio=5.37  D=+5.74pp  overlap@K=0.4986
+  [B4/gradient_boosting] gap=+16.66pp  ratio=5.29  D=+5.64pp  overlap@K=0.4994
+
+=============== scheme = ufs_direito ===============
+  composite mean=532.4698 sd=92.0498  train positives=7,432  test positives=2,477
+  [B3/logistic_regression] gap=+13.96pp  ratio=3.87  D=+3.62pp  overlap@K=0.4683
+  [B3/gradient_boosting] gap=+13.61pp  ratio=3.73  D=+3.27pp  overlap@K=0.4776
+  [B4/logistic_regression] gap=+16.15pp  ratio=4.98  D=+5.81pp  overlap@K=0.4719
+  [B4/gradient_boosting] gap=+15.43pp  ratio=4.58  D=+5.09pp  overlap@K=0.4808
+
+=============== scheme = objective_only ===============
+  composite mean=507.2942 sd=70.7176  train positives=7,432  test positives=2,477
+  [B3/logistic_regression] gap=+14.62pp  ratio=4.18  D=+3.23pp  overlap@K=0.5034
+  [B3/gradient_boosting] gap=+14.66pp  ratio=4.21  D=+3.28pp  overlap@K=0.5055
+  [B4/logistic_regression] gap=+16.76pp  ratio=5.42  D=+5.38pp  overlap@K=0.5055
+  [B4/gradient_boosting] gap=+16.75pp  ratio=5.46  D=+5.37pp  overlap@K=0.5050
+
+=============== scheme = standardised_equal ===============
+  composite mean=-0.0000 sd=0.8251  train positives=7,432  test positives=2,477
+  [B3/logistic_regression] gap=+14.64pp  ratio=4.20  D=+3.47pp  overlap@K=0.4982
+  [B3/gradient_boosting] gap=+14.26pp  ratio=4.01  D=+3.09pp  overlap@K=0.5022
+  [B4/logistic_regression] gap=+16.98pp  ratio=5.57  D=+5.81pp  overlap@K=0.4982
+  [B4/gradient_boosting] gap=+16.43pp  ratio=5.21  D=+5.26pp  overlap@K=0.5006
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_composite.csv (20 rows).
+robust_all_scores.parquet now has 1684768 rows.
+
+D2 total elapsed: 34s
+
+======================================================================
+TASK D3 - STATE-ONLY GEOGRAPHY (municipality dropped, B2-B6, K=10%)
+======================================================================
+
+BLOCK_MUNICIPALITY forced to False for all blocks (state-only ablation).
+  [B2/logistic_regression] gap=+5.76pp  (primary=+8.00pp, delta=-2.24pp)
+  [B2/gradient_boosting] gap=+6.21pp  (primary=+7.17pp, delta=-0.96pp)
+  [B3/logistic_regression] gap=+14.18pp  (primary=+14.55pp, delta=-0.37pp)
+  [B3/gradient_boosting] gap=+13.92pp  (primary=+14.39pp, delta=-0.46pp)
+  [B4/logistic_regression] gap=+16.53pp  (primary=+16.77pp, delta=-0.24pp)
+  [B4/gradient_boosting] gap=+16.76pp  (primary=+16.14pp, delta=+0.62pp)
+  [B5/logistic_regression] gap=+14.16pp  (primary=+14.57pp, delta=-0.41pp)
+  [B5/gradient_boosting] gap=+14.11pp  (primary=+14.28pp, delta=-0.16pp)
+  [B6/logistic_regression] gap=+16.51pp  (primary=+16.74pp, delta=-0.23pp)
+  [B6/gradient_boosting] gap=+16.51pp  (primary=+16.01pp, delta=+0.50pp)
+
+BLOCK_MUNICIPALITY restored.
+
+----------------------------------------------------------------------
+B3 -> B4 gap-increase comparison (state-only vs primary)
+----------------------------------------------------------------------
+  logistic_regression: B3->B4 delta state-only=+2.35pp  primary=+2.22pp  diff=+0.13pp  (no material difference)
+  gradient_boosting: B3->B4 delta state-only=+2.84pp  primary=+1.76pp  diff=+1.08pp  !!! MATERIALLY DIFFERENT (>1pp) -- municipality may be doing hidden work !!!
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_state_only.csv (10 rows).
+robust_all_scores.parquet now has 1932528 rows.
+
+D3 total elapsed: 14s
+
+======================================================================
+TASK D4 - PROTECTED GROUP VARIANTS (B3/B4, K=10%)
+======================================================================
+
+----------------------------------------------------------------------
+D4 (a)-(c): reusing primary B3/B4 test scores (no refit)
+----------------------------------------------------------------------
+  [black_vs_white] B3/logistic_regression: White vs Black  n=8904/3287  gap=+16.63pp  ratio=7.51  bench_pos=1512/137  model_pos=1708/84
+  [pardo_vs_white] B3/logistic_regression: White vs Pardo  n=8904/11858  gap=+13.97pp  ratio=3.68  bench_pos=1512/765  model_pos=1708/618
+  [bpi_vs_white] B3/logistic_regression: White vs Black_Pardo_Indigenous  n=8904/15300  gap=+14.59pp  ratio=4.17  bench_pos=1512/905  model_pos=1708/703
+  [sex_f_vs_m] B3/logistic_regression: F vs M  n=14837/9939  gap=-2.95pp  ratio=0.75  bench_pos=1296/1181  model_pos=1308/1169
+  [black_vs_white] B3/gradient_boosting: White vs Black  n=8904/3287  gap=+16.28pp  ratio=6.82  bench_pos=1512/137  model_pos=1699/92
+  [pardo_vs_white] B3/gradient_boosting: White vs Pardo  n=8904/11858  gap=+13.86pp  ratio=3.66  bench_pos=1512/765  model_pos=1699/619
+  [bpi_vs_white] B3/gradient_boosting: White vs Black_Pardo_Indigenous  n=8904/15300  gap=+14.43pp  ratio=4.10  bench_pos=1512/905  model_pos=1699/712
+  [sex_f_vs_m] B3/gradient_boosting: F vs M  n=14837/9939  gap=-3.33pp  ratio=0.72  bench_pos=1296/1181  model_pos=1285/1192
+  [black_vs_white] B4/logistic_regression: White vs Black  n=8904/3287  gap=+19.23pp  ratio=15.05  bench_pos=1512/137  model_pos=1834/45
+  [pardo_vs_white] B4/logistic_regression: White vs Pardo  n=8904/11858  gap=+16.09pp  ratio=4.57  bench_pos=1512/765  model_pos=1834/535
+  [bpi_vs_white] B4/logistic_regression: White vs Black_Pardo_Indigenous  n=8904/15300  gap=+16.80pp  ratio=5.42  bench_pos=1512/905  model_pos=1834/581
+  [sex_f_vs_m] B4/logistic_regression: F vs M  n=14837/9939  gap=-2.78pp  ratio=0.76  bench_pos=1296/1181  model_pos=1318/1159
+  [black_vs_white] B4/gradient_boosting: White vs Black  n=8904/3287  gap=+18.83pp  ratio=15.07  bench_pos=1512/137  model_pos=1796/44
+  [pardo_vs_white] B4/gradient_boosting: White vs Pardo  n=8904/11858  gap=+15.40pp  ratio=4.23  bench_pos=1512/765  model_pos=1796/566
+  [bpi_vs_white] B4/gradient_boosting: White vs Black_Pardo_Indigenous  n=8904/15300  gap=+16.18pp  ratio=5.05  bench_pos=1512/905  model_pos=1796/611
+  [sex_f_vs_m] B4/gradient_boosting: F vs M  n=14837/9939  gap=-3.18pp  ratio=0.73  bench_pos=1296/1181  model_pos=1294/1183
+
+----------------------------------------------------------------------
+D4 (d): race not declared retained (new population, refit B3/B4)
+----------------------------------------------------------------------
+
+D4(d) population after cascade steps 1-4 (race not restricted): N=126,313 (Section 4.2 reports 126,313 at this step).
+  123,879 rows already split in Task B3 (unchanged); 2,434 new 'not declared' rows need a fresh split assignment.
+  New-row split sizes: train=1,460 val=487 test=487
+  Benchmark over extended population: train pos=7,578, test pos=2,526
+  [B3/logistic_regression] gap=+14.46pp  ratio=4.08  not-declared: n=487, bench_pos=63, model_pos=43
+  [B3/gradient_boosting] gap=+14.26pp  ratio=4.01  not-declared: n=487, bench_pos=63, model_pos=49
+  [B4/logistic_regression] gap=+16.78pp  ratio=5.40  not-declared: n=487, bench_pos=63, model_pos=50
+  [B4/gradient_boosting] gap=+16.00pp  ratio=4.93  not-declared: n=487, bench_pos=63, model_pos=50
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_groups.csv (20 rows).
+robust_all_scores.parquet now has 2429996 rows.
+
+D4 total elapsed: 11s
+
+======================================================================
+TASK D5 - RANKING POPULATION: WHITE + BLACK/PARDO ONLY (B3/B4, K=10%)
+======================================================================
+
+Restricted population: N=120,237 (full analytic sample was 123,879; dropped 3,642 Asian/Indigenous rows).
+  Split sizes here: {'train': 72140, 'test': 24049, 'val': 24048}
+  Benchmark recomputed on this population: train pos=7,214, test pos=2,404
+  [B3/logistic_regression] gap=+14.37pp  ratio=4.07  D=+3.41pp  overlap@K=0.4867
+  [B3/gradient_boosting] gap=+14.00pp  ratio=3.91  D=+3.03pp  overlap@K=0.4975
+  [B4/logistic_regression] gap=+16.71pp  ratio=5.39  D=+5.74pp  overlap@K=0.4908
+  [B4/gradient_boosting] gap=+16.14pp  ratio=5.01  D=+5.17pp  overlap@K=0.4996
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_population.csv (4 rows).
+robust_all_scores.parquet now has 2526192 rows.
+
+D5 total elapsed: 8s
+
+======================================================================
+TASK D6 - END-TO-END ABSENCE ROBUSTNESS (B3/B4, K=10%)
+======================================================================
+
+Completers (= analytic sample): N=123,879, e2e-positive=12,386 (should equal train+val+test benchmark positives from Task B)
+Population after cascade steps 1,2,5 (completion+race, attendance/scores NOT required): N=174,919
+Non-completers (absent from >=1 exam or missing a score): N=51,040
+  Non-completer split sizes: train=30,624 val=10,208 test=10,208
+Combined end-to-end frame: N=174,919  (completers 123,879 + non-completers 51,040)
+
+End-to-end test set: N=34,984, positives=2,477 (7.08% -- lower than 10% since absentees dilute the rate)
+  [B3/logistic_regression] seats=2,477  gap=+11.00pp  ratio=4.51  D=+2.83pp  overlap@K=0.4388
+  [B3/gradient_boosting] seats=2,477  gap=+10.97pp  ratio=4.50  D=+2.79pp  overlap@K=0.4477
+  [B4/logistic_regression] seats=2,477  gap=+12.57pp  ratio=5.90  D=+4.40pp  overlap@K=0.4368
+  [B4/gradient_boosting] seats=2,477  gap=+12.05pp  ratio=5.40  D=+3.87pp  overlap@K=0.4461
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_absence.csv (4 rows).
+robust_all_scores.parquet now has 2666128 rows.
+
+D6 total elapsed: 13s
+
+======================================================================
+TASK D7 - BOOTSTRAP FOR EVERY D1-D6 CELL (1000 reps, stratified, eps=1pp)
+======================================================================
+
+Loaded 2,666,128 rows across 106 cells.
+  [D1/K5_local/B1/logistic_regression] D=-3.33pp CI=[-4.19,-2.49] -> attenuation
+  [D1/K5_global/B1/logistic_regression] D=-3.55pp CI=[-4.41,-2.73] -> attenuation
+  [D1/K5_local/B1/gradient_boosting] D=-3.07pp CI=[-3.98,-2.21] -> attenuation
+  [D1/K5_global/B1/gradient_boosting] D=-3.30pp CI=[-4.22,-2.43] -> attenuation
+  [D1/K5_local/B2/logistic_regression] D=-2.38pp CI=[-3.25,-1.58] -> attenuation
+  [D1/K5_global/B2/logistic_regression] D=-2.55pp CI=[-3.44,-1.74] -> attenuation
+  [D1/K5_local/B2/gradient_boosting] D=-2.84pp CI=[-3.65,-2.07] -> attenuation
+  [D1/K5_global/B2/gradient_boosting] D=-3.10pp CI=[-3.92,-2.33] -> attenuation
+  [D1/K5_local/B3/logistic_regression] D=+1.71pp CI=[+0.96,+2.48] -> inconclusive
+  [D1/K5_global/B3/logistic_regression] D=+1.49pp CI=[+0.73,+2.28] -> inconclusive
+  [D1/K5_local/B3/gradient_boosting] D=+1.25pp CI=[+0.52,+2.00] -> inconclusive
+  [D1/K5_global/B3/gradient_boosting] D=+0.91pp CI=[+0.14,+1.65] -> inconclusive
+  [D1/K5_local/B4/logistic_regression] D=+2.91pp CI=[+2.14,+3.69] -> amplification
+  [D1/K5_global/B4/logistic_regression] D=+2.76pp CI=[+1.98,+3.52] -> amplification
+  [D1/K5_local/B4/gradient_boosting] D=+1.99pp CI=[+1.22,+2.69] -> amplification
+  [D1/K5_global/B4/gradient_boosting] D=+1.74pp CI=[+0.96,+2.44] -> inconclusive
+  [D1/K5_local/B5/logistic_regression] D=+1.71pp CI=[+0.97,+2.46] -> inconclusive
+  [D1/K5_global/B5/logistic_regression] D=+1.45pp CI=[+0.71,+2.23] -> inconclusive
+  [D1/K5_local/B5/gradient_boosting] D=+1.30pp CI=[+0.53,+2.01] -> inconclusive
+  [D1/K5_global/B5/gradient_boosting] D=+1.03pp CI=[+0.27,+1.77] -> inconclusive
+  [D1/K5_local/B6/logistic_regression] D=+2.86pp CI=[+2.08,+3.65] -> amplification
+  [D1/K5_global/B6/logistic_regression] D=+2.76pp CI=[+1.98,+3.55] -> amplification
+  [D1/K5_local/B6/gradient_boosting] D=+2.00pp CI=[+1.25,+2.72] -> amplification
+  [D1/K5_global/B6/gradient_boosting] D=+1.78pp CI=[+1.03,+2.51] -> amplification
+  [D1/K20_local/B1/logistic_regression] D=-2.45pp CI=[-3.95,-1.15] -> attenuation
+  [D1/K20_global/B1/logistic_regression] D=-2.55pp CI=[-4.05,-1.18] -> attenuation
+  [D1/K20_local/B1/gradient_boosting] D=-4.20pp CI=[-5.53,-2.84] -> attenuation
+  [D1/K20_global/B1/gradient_boosting] D=-4.23pp CI=[-5.63,-2.89] -> attenuation
+  [D1/K20_local/B2/logistic_regression] D=-1.85pp CI=[-3.26,-0.43] -> inconclusive
+  [D1/K20_global/B2/logistic_regression] D=-1.79pp CI=[-3.19,-0.36] -> inconclusive
+  [D1/K20_local/B2/gradient_boosting] D=-2.51pp CI=[-3.85,-1.14] -> attenuation
+  [D1/K20_global/B2/gradient_boosting] D=-2.65pp CI=[-3.97,-1.26] -> attenuation
+  [D1/K20_local/B3/logistic_regression] D=+5.13pp CI=[+3.95,+6.33] -> amplification
+  [D1/K20_global/B3/logistic_regression] D=+5.35pp CI=[+4.19,+6.55] -> amplification
+  [D1/K20_local/B3/gradient_boosting] D=+5.20pp CI=[+4.14,+6.32] -> amplification
+  [D1/K20_global/B3/gradient_boosting] D=+5.27pp CI=[+4.20,+6.41] -> amplification
+  [D1/K20_local/B4/logistic_regression] D=+9.72pp CI=[+8.55,+10.88] -> amplification
+  [D1/K20_global/B4/logistic_regression] D=+9.79pp CI=[+8.62,+10.95] -> amplification
+  [D1/K20_local/B4/gradient_boosting] D=+8.16pp CI=[+7.01,+9.32] -> amplification
+  [D1/K20_global/B4/gradient_boosting] D=+8.20pp CI=[+7.05,+9.36] -> amplification
+  [D1/K20_local/B5/logistic_regression] D=+5.20pp CI=[+4.01,+6.35] -> amplification
+  [D1/K20_global/B5/logistic_regression] D=+5.26pp CI=[+4.07,+6.41] -> amplification
+  [D1/K20_local/B5/gradient_boosting] D=+5.02pp CI=[+3.97,+6.09] -> amplification
+  [D1/K20_global/B5/gradient_boosting] D=+5.05pp CI=[+4.00,+6.13] -> amplification
+  [D1/K20_local/B6/logistic_regression] D=+9.75pp CI=[+8.55,+10.92] -> amplification
+  [D1/K20_global/B6/logistic_regression] D=+9.79pp CI=[+8.60,+10.97] -> amplification
+  [D1/K20_local/B6/gradient_boosting] D=+7.93pp CI=[+6.89,+9.06] -> amplification
+  [D1/K20_global/B6/gradient_boosting] D=+7.92pp CI=[+6.87,+9.06] -> amplification
+  [D2/ufs_eng_computacao/B3/logistic_regression] D=+3.54pp CI=[+2.64,+4.43] -> amplification
+  [D2/ufs_eng_computacao/B3/gradient_boosting] D=+3.56pp CI=[+2.64,+4.42] -> amplification
+  [D2/ufs_eng_computacao/B4/logistic_regression] D=+5.85pp CI=[+4.93,+6.73] -> amplification
+  [D2/ufs_eng_computacao/B4/gradient_boosting] D=+5.43pp CI=[+4.52,+6.35] -> amplification
+  [D2/ufs_medicina/B3/logistic_regression] D=+3.59pp CI=[+2.66,+4.45] -> amplification
+  [D2/ufs_medicina/B3/gradient_boosting] D=+3.23pp CI=[+2.29,+4.13] -> amplification
+  [D2/ufs_medicina/B4/logistic_regression] D=+5.74pp CI=[+4.79,+6.64] -> amplification
+  [D2/ufs_medicina/B4/gradient_boosting] D=+5.64pp CI=[+4.73,+6.56] -> amplification
+  [D2/ufs_direito/B3/logistic_regression] D=+3.62pp CI=[+2.66,+4.56] -> amplification
+  [D2/ufs_direito/B3/gradient_boosting] D=+3.27pp CI=[+2.33,+4.22] -> amplification
+  [D2/ufs_direito/B4/logistic_regression] D=+5.81pp CI=[+4.83,+6.75] -> amplification
+  [D2/ufs_direito/B4/gradient_boosting] D=+5.09pp CI=[+4.14,+6.04] -> amplification
+  [D2/objective_only/B3/logistic_regression] D=+3.23pp CI=[+2.22,+4.13] -> amplification
+  [D2/objective_only/B3/gradient_boosting] D=+3.28pp CI=[+2.25,+4.17] -> amplification
+  [D2/objective_only/B4/logistic_regression] D=+5.38pp CI=[+4.33,+6.31] -> amplification
+  [D2/objective_only/B4/gradient_boosting] D=+5.37pp CI=[+4.31,+6.26] -> amplification
+  [D2/standardised_equal/B3/logistic_regression] D=+3.47pp CI=[+2.48,+4.36] -> amplification
+  [D2/standardised_equal/B3/gradient_boosting] D=+3.09pp CI=[+2.15,+3.98] -> amplification
+  [D2/standardised_equal/B4/logistic_regression] D=+5.81pp CI=[+4.81,+6.75] -> amplification
+  [D2/standardised_equal/B4/gradient_boosting] D=+5.26pp CI=[+4.28,+6.19] -> amplification
+  [D3/state_only/B2/logistic_regression] D=-5.26pp CI=[-6.36,-4.22] -> attenuation
+  [D3/state_only/B2/gradient_boosting] D=-4.82pp CI=[-5.93,-3.69] -> attenuation
+  [D3/state_only/B3/logistic_regression] D=+3.15pp CI=[+2.17,+4.06] -> amplification
+  [D3/state_only/B3/gradient_boosting] D=+2.90pp CI=[+1.97,+3.78] -> amplification
+  [D3/state_only/B4/logistic_regression] D=+5.50pp CI=[+4.54,+6.44] -> amplification
+  [D3/state_only/B4/gradient_boosting] D=+5.74pp CI=[+4.81,+6.62] -> amplification
+  [D3/state_only/B5/logistic_regression] D=+3.13pp CI=[+2.15,+4.05] -> amplification
+  [D3/state_only/B5/gradient_boosting] D=+3.09pp CI=[+2.19,+4.00] -> amplification
+  [D3/state_only/B6/logistic_regression] D=+5.48pp CI=[+4.51,+6.42] -> amplification
+  [D3/state_only/B6/gradient_boosting] D=+5.49pp CI=[+4.56,+6.46] -> amplification
+  [D4/black_vs_white/B3/logistic_regression] D=+3.81pp CI=[+2.66,+4.98] -> amplification
+  [D4/pardo_vs_white/B3/logistic_regression] D=+3.44pp CI=[+2.49,+4.40] -> amplification
+  [D4/bpi_vs_white/B3/logistic_regression] D=+3.52pp CI=[+2.62,+4.40] -> amplification
+  [D4/sex_f_vs_m/B3/logistic_regression] D=+0.20pp CI=[-0.62,+1.04] -> inconclusive
+  [D4/black_vs_white/B3/gradient_boosting] D=+3.47pp CI=[+2.32,+4.65] -> amplification
+  [D4/pardo_vs_white/B3/gradient_boosting] D=+3.33pp CI=[+2.37,+4.33] -> amplification
+  [D4/bpi_vs_white/B3/gradient_boosting] D=+3.36pp CI=[+2.43,+4.25] -> amplification
+  [D4/sex_f_vs_m/B3/gradient_boosting] D=-0.18pp CI=[-0.97,+0.69] -> practical_reproduction
+  [D4/black_vs_white/B4/logistic_regression] D=+6.42pp CI=[+5.32,+7.56] -> amplification
+  [D4/pardo_vs_white/B4/logistic_regression] D=+5.56pp CI=[+4.62,+6.52] -> amplification
+  [D4/bpi_vs_white/B4/logistic_regression] D=+5.73pp CI=[+4.84,+6.63] -> amplification
+  [D4/sex_f_vs_m/B4/logistic_regression] D=+0.37pp CI=[-0.42,+1.23] -> inconclusive
+  [D4/black_vs_white/B4/gradient_boosting] D=+6.02pp CI=[+4.97,+7.16] -> amplification
+  [D4/pardo_vs_white/B4/gradient_boosting] D=+4.87pp CI=[+3.86,+5.87] -> amplification
+  [D4/bpi_vs_white/B4/gradient_boosting] D=+5.11pp CI=[+4.21,+5.96] -> amplification
+  [D4/sex_f_vs_m/B4/gradient_boosting] D=-0.03pp CI=[-0.82,+0.84] -> practical_reproduction
+  [D4/race_not_declared_retained/B3/logistic_regression] D=+3.51pp CI=[+2.57,+4.43] -> amplification
+  [D4/race_not_declared_retained/B3/gradient_boosting] D=+3.31pp CI=[+2.38,+4.23] -> amplification
+  [D4/race_not_declared_retained/B4/logistic_regression] D=+5.83pp CI=[+4.90,+6.76] -> amplification
+  [D4/race_not_declared_retained/B4/gradient_boosting] D=+5.05pp CI=[+4.11,+5.98] -> amplification
+  [D5/white_bp_only_population/B3/logistic_regression] D=+3.41pp CI=[+2.47,+4.28] -> amplification
+  [D5/white_bp_only_population/B3/gradient_boosting] D=+3.03pp CI=[+2.08,+3.93] -> amplification
+  [D5/white_bp_only_population/B4/logistic_regression] D=+5.74pp CI=[+4.81,+6.68] -> amplification
+  [D5/white_bp_only_population/B4/gradient_boosting] D=+5.17pp CI=[+4.24,+6.06] -> amplification
+  [D6/end_to_end_absence/B3/logistic_regression] D=+2.83pp CI=[+2.11,+3.52] -> amplification
+  [D6/end_to_end_absence/B3/gradient_boosting] D=+2.79pp CI=[+2.04,+3.50] -> amplification
+  [D6/end_to_end_absence/B4/logistic_regression] D=+4.40pp CI=[+3.67,+5.12] -> amplification
+  [D6/end_to_end_absence/B4/gradient_boosting] D=+3.87pp CI=[+3.14,+4.60] -> amplification
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_bootstrap.csv (106 rows).

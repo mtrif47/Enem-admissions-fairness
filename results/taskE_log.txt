@@ -1,0 +1,138 @@
+
+======================================================================
+TASK E1 - REWEIGHING (blocks B3/B4, K=10%)
+======================================================================
+
+Reweighing weights on train (N=74,327): min=0.589 max=4.680 mean=1.000
+  weight(group=Asian, y=False) = 1.0046
+  weight(group=Asian, y=True) = 0.9602
+  weight(group=Black, y=False) = 0.9394
+  weight(group=Black, y=True) = 2.3860
+  weight(group=Indigenous, y=False) = 0.9197
+  weight(group=Indigenous, y=True) = 4.6796
+  weight(group=Pardo, y=False) = 0.9621
+  weight(group=Pardo, y=True) = 1.5483
+  weight(group=White, y=False) = 1.0839
+  weight(group=White, y=True) = 0.5894
+
+  [B3/logistic_regression] overlap@K=0.4800  gap=+12.82pp  ratio=3.42  D=+1.80pp
+    zero-sum=-0.000000  [OK (~0)]
+    White        FPR=0.1059  FNR=0.4504  net_realloc=+0.0115
+    Black_Pardo  FPR=0.0337  FNR=0.6419  net_realloc=-0.0065
+
+  [B3/gradient_boosting] overlap@K=0.4909  gap=+12.33pp  ratio=3.26  D=+1.31pp
+    zero-sum=0.000000  [OK (~0)]
+    White        FPR=0.0996  FNR=0.4385  net_realloc=+0.0082
+    Black_Pardo  FPR=0.0347  FNR=0.6297  net_realloc=-0.0049
+
+  [B4/logistic_regression] overlap@K=0.4627  gap=+5.87pp  ratio=1.75  D=-5.15pp
+    zero-sum=0.000000  [OK (~0)]
+    White        FPR=0.0708  FNR=0.5397  net_realloc=-0.0329
+    Black_Pardo  FPR=0.0543  FNR=0.5443  net_realloc=+0.0186
+
+  [B4/gradient_boosting] overlap@K=0.4691  gap=+6.03pp  ratio=1.78  D=-5.00pp
+    zero-sum=0.000000  [OK (~0)]
+    White        FPR=0.0694  FNR=0.5291  net_realloc=-0.0322
+    Black_Pardo  FPR=0.0535  FNR=0.5466  net_realloc=+0.0178
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/mitig_reweighing.csv (4 rows).
+mitig_all_scores.parquet now has 99104 rows.
+
+E1 total elapsed: 8s
+
+======================================================================
+TASK E2 - CAPACITY-CONSTRAINED EQUAL-OPPORTUNITY THRESHOLDS (B3/B4, K=10%)
+======================================================================
+  [B3/logistic_regression] refit consistency vs main_grid_test_scores.parquet: max|diff|=0.00e+00 OK
+    capacity: realised=2,477  target=floor(K*N_test)=2,477  [OK]
+    val split: n_white=1210 n_bp=1206  TPR_white=0.4573 TPR_bp=0.4580  tau_white=0.3604 tau_bp=0.1979
+    test: n_white_selected=1210 n_bp_selected=1200 n_ai_held_fixed=67
+    overlap@K=0.4651  gap=+5.67pp  ratio=1.72  D=-5.36pp  zero-sum=0.000000 [OK (~0)]
+
+  [B3/gradient_boosting] refit consistency vs main_grid_test_scores.parquet: max|diff|=0.00e+00 OK
+    capacity: realised=2,477  target=floor(K*N_test)=2,477  [OK]
+    val split: n_white=1241 n_bp=1175  TPR_white=0.4665 TPR_bp=0.4668  tau_white=0.3958 tau_bp=0.2196
+    test: n_white_selected=1241 n_bp_selected=1169 n_ai_held_fixed=67
+    overlap@K=0.4723  gap=+6.22pp  ratio=1.81  D=-4.81pp  zero-sum=0.000000 [OK (~0)]
+
+  [B4/logistic_regression] refit consistency vs main_grid_test_scores.parquet: max|diff|=0.00e+00 OK
+    capacity: realised=2,477  target=floor(K*N_test)=2,477  [OK]
+    val split: n_white=1200 n_bp=1224  TPR_white=0.4559 TPR_bp=0.4558  tau_white=0.3880 tau_bp=0.1726
+    test: n_white_selected=1200 n_bp_selected=1214 n_ai_held_fixed=63
+    overlap@K=0.4663  gap=+5.46pp  ratio=1.68  D=-5.56pp  zero-sum=-0.000000 [OK (~0)]
+
+  [B4/gradient_boosting] refit consistency vs main_grid_test_scores.parquet: max|diff|=0.00e+00 OK
+    capacity: realised=2,477  target=floor(K*N_test)=2,477  [OK]
+    val split: n_white=1229 n_bp=1187  TPR_white=0.4659 TPR_bp=0.4657  tau_white=0.4218 tau_bp=0.1965
+    test: n_white_selected=1229 n_bp_selected=1177 n_ai_held_fixed=71
+    overlap@K=0.4695  gap=+6.03pp  ratio=1.78  D=-4.99pp  zero-sum=0.000000 [OK (~0)]
+
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/mitig_threshold.csv (4 rows).
+mitig_all_scores.parquet now has 198208 rows.
+
+E2 total elapsed: 19s
+
+======================================================================
+TASK E3 - CONSTRAINT SWEEP / FIDELITY-PARITY FRONTIER (B3/B4, K=10%, 11 levels)
+======================================================================
+
+  [B3/logistic_regression] unmitigated val TPR gap = +0.2215 (TPR_white=0.5699, TPR_bp=0.3485)
+    levels: L0(gap=+14.5pp), L1(gap=+12.6pp), L2(gap=+11.7pp), L3(gap=+10.8pp), L4(gap=+10.4pp), L5(gap=+9.5pp), L6(gap=+8.7pp), L7(gap=+7.9pp), L8(gap=+7.3pp), L9(gap=+6.3pp), L10(gap=+5.7pp)
+
+  [B3/gradient_boosting] unmitigated val TPR gap = +0.2128 (TPR_white=0.5746, TPR_bp=0.3617)
+    levels: L0(gap=+14.4pp), L1(gap=+12.7pp), L2(gap=+12.2pp), L3(gap=+11.4pp), L4(gap=+10.7pp), L5(gap=+10.1pp), L6(gap=+9.1pp), L7(gap=+8.4pp), L8(gap=+7.8pp), L9(gap=+6.8pp), L10(gap=+6.2pp)
+
+  [B4/logistic_regression] unmitigated val TPR gap = +0.2809 (TPR_white=0.5984, TPR_bp=0.3175)
+    levels: L0(gap=+16.8pp), L1(gap=+14.5pp), L2(gap=+13.6pp), L3(gap=+12.5pp), L4(gap=+11.5pp), L5(gap=+10.6pp), L6(gap=+9.7pp), L7(gap=+8.8pp), L8(gap=+7.6pp), L9(gap=+6.6pp), L10(gap=+5.5pp)
+
+  [B4/gradient_boosting] unmitigated val TPR gap = +0.2781 (TPR_white=0.6011, TPR_bp=0.3230)
+    levels: L0(gap=+16.1pp), L1(gap=+14.6pp), L2(gap=+13.9pp), L3(gap=+12.8pp), L4(gap=+11.9pp), L5(gap=+10.8pp), L6(gap=+9.8pp), L7(gap=+8.5pp), L8(gap=+7.9pp), L9(gap=+7.0pp), L10(gap=+6.0pp)
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/mitig_frontier.csv (44 rows).
+mitig_all_scores.parquet now has 396416 rows.
+
+E3 total elapsed: 20s
+
+======================================================================
+TASK E4 - ANCHOR COMPARISON (E1-E3 vs random top-K anchor)
+======================================================================
+
+Anchor (Task B4b): overlap@K=0.096, gap=-0.39pp
+
+Combined 52 rows across E1 (4), E2, E3.
+
+Summary (min/median/max overlap_above_anchor and gap_above_anchor):
+  E1_reweighing  overlap_above_anchor: min=0.3667 median=0.3786 max=0.3949   gap_above_anchor: min=+6.26pp median=+9.57pp max=+13.21pp
+  E2_threshold   overlap_above_anchor: min=0.3691 median=0.3719 max=0.3763   gap_above_anchor: min=+5.85pp median=+6.24pp max=+6.61pp
+  E3_frontier    overlap_above_anchor: min=0.3691 median=0.3879 max=0.4050   gap_above_anchor: min=+5.85pp median=+10.61pp max=+17.16pp
+
+  No cell approaches the random anchor's fidelity -- all mitigations retain meaningfully more signal than an uninformative rule.
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/mitig_anchor_comparison.csv (52 rows).
+
+E4 total elapsed: 0s
+
+======================================================================
+TASK E5 - BOOTSTRAP (E1, E2, E3 endpoints; 1000 reps, eps=1pp)
+======================================================================
+
+Loaded 396,416 rows; bootstrapping 16 cells.
+  [E1/reweighing/B3/logistic_regression] D=+1.80pp CI=[+0.96,+2.72] -> inconclusive  |  fidelity_cost=-0.0109 CI=[-0.0190,-0.0028]
+  [E1/reweighing/B3/gradient_boosting] D=+1.31pp CI=[+0.43,+2.18] -> inconclusive  |  fidelity_cost=-0.0052 CI=[-0.0151,+0.0047]
+  [E1/reweighing/B4/logistic_regression] D=-5.15pp CI=[-6.06,-4.24] -> attenuation  |  fidelity_cost=-0.0319 CI=[-0.0458,-0.0170]
+  [E1/reweighing/B4/gradient_boosting] D=-5.00pp CI=[-5.90,-4.11] -> attenuation  |  fidelity_cost=-0.0321 CI=[-0.0443,-0.0181]
+  [E2/threshold_eq_opp/B3/logistic_regression] D=-5.36pp CI=[-6.28,-4.47] -> attenuation  |  fidelity_cost=-0.0270 CI=[-0.0398,-0.0140]
+  [E2/threshold_eq_opp/B3/gradient_boosting] D=-4.81pp CI=[-5.66,-3.90] -> attenuation  |  fidelity_cost=-0.0261 CI=[-0.0382,-0.0143]
+  [E2/threshold_eq_opp/B4/logistic_regression] D=-5.56pp CI=[-6.47,-4.65] -> attenuation  |  fidelity_cost=-0.0302 CI=[-0.0438,-0.0156]
+  [E2/threshold_eq_opp/B4/gradient_boosting] D=-4.99pp CI=[-5.88,-4.09] -> attenuation  |  fidelity_cost=-0.0324 CI=[-0.0455,-0.0183]
+  [E3/level0_unmitigated/B3/logistic_regression] D=+3.52pp CI=[+2.66,+4.39] -> amplification  |  fidelity_cost=+0.0000 CI=[+0.0000,+0.0000]
+  [E3/level10_full_eq/B3/logistic_regression] D=-5.36pp CI=[-6.28,-4.47] -> attenuation  |  fidelity_cost=-0.0270 CI=[-0.0398,-0.0140]
+  [E3/level0_unmitigated/B3/gradient_boosting] D=+3.36pp CI=[+2.47,+4.26] -> amplification  |  fidelity_cost=+0.0000 CI=[+0.0000,+0.0000]
+  [E3/level10_full_eq/B3/gradient_boosting] D=-4.81pp CI=[-5.66,-3.90] -> attenuation  |  fidelity_cost=-0.0261 CI=[-0.0382,-0.0143]
+  [E3/level0_unmitigated/B4/logistic_regression] D=+5.74pp CI=[+4.84,+6.64] -> amplification  |  fidelity_cost=+0.0000 CI=[+0.0000,+0.0000]
+  [E3/level10_full_eq/B4/logistic_regression] D=-5.56pp CI=[-6.47,-4.65] -> attenuation  |  fidelity_cost=-0.0302 CI=[-0.0438,-0.0156]
+  [E3/level0_unmitigated/B4/gradient_boosting] D=+5.12pp CI=[+4.23,+6.03] -> amplification  |  fidelity_cost=+0.0000 CI=[+0.0000,+0.0000]
+  [E3/level10_full_eq/B4/gradient_boosting] D=-4.99pp CI=[-5.88,-4.09] -> attenuation  |  fidelity_cost=-0.0324 CI=[-0.0455,-0.0183]
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/mitig_bootstrap.csv (16 rows).

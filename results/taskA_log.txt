@@ -1,0 +1,64 @@
+======================================================================
+TASK A - DATA PREPARATION
+======================================================================
+
+Loading /Users/miatrifunovic/Downloads/microdados_enem_2019/DADOS/enem_2019_sample.csv (sep=';', encoding='latin-1') ...
+0: Random sample (loaded file): N = 203,807
+1: Exclude treineiros (IN_TREINEIRO == 0): N = 179,226
+2: Completed or completing secondary education in 2019 (TP_ST_CONCLUSAO in {1,2}): N = 178,429
+3: Present at all four objective examinations (TP_PRESENCA_CN/CH/LC/MT == 1): N = 126,313
+4: Non-missing scores on all five components: N = 126,313
+5: Race declared (TP_COR_RACA != 0): N = 123,879
+
+----------------------------------------------------------------------
+Cascade check against Section 4.2
+----------------------------------------------------------------------
+  Step 0: observed=203,807  expected=203,807  [OK]
+  Step 1: observed=179,226  expected=179,226  [OK]
+  Step 2: observed=178,429  expected=178,429  [OK]
+  Step 3: observed=126,313  expected=126,313  [OK]
+  Step 4: observed=126,313  expected=126,313  [OK]
+  Step 5: observed=123,879  expected=123,879  [OK]
+
+All six cascade values match Section 4.2 exactly.
+
+----------------------------------------------------------------------
+Raw equal-weight composite (Section 4.6)
+----------------------------------------------------------------------
+  N = 123,879
+  Mean = 522.0  (spec reports 522.0)
+  SD   = 83.7  (spec reports 83.7)
+
+----------------------------------------------------------------------
+Top-K benchmark construction, K = 10% (Section 4.6, item 5)
+----------------------------------------------------------------------
+  N = 123,879, K = 10% -> floor(K*N) = 12,387 places
+  Boundary composite value = 638.5200
+  Candidates tied at the boundary value = 6
+  Of those tied, selected by random tie-break (seed 20190101) = 3
+  Candidates selected overall = 12,387 (should equal 12,387)
+
+----------------------------------------------------------------------
+Section 6.1 reproduction: White vs Black/Pardo selection rates
+----------------------------------------------------------------------
+
+  K = 5%  (tied at boundary = 5)
+    White:       observed 8.95%   expected 8.96%
+    Black/Pardo: observed 2.68%   expected 2.68%
+    Gap (pp):    observed 6.28      expected 6.28
+    Ratio:       observed 3.34      expected 3.34
+
+  K = 10%  (tied at boundary = 6)
+    White:       observed 16.97%   expected 16.97%
+    Black/Pardo: observed 5.97%   expected 5.97%
+    Gap (pp):    observed 11.00      expected 11.00
+    Ratio:       observed 2.84      expected 2.84
+    (n_white=44,529, n_black_pardo=75,708)
+
+  K = 20%  (tied at boundary = 4)
+    White:       observed 30.67%   expected 30.68%
+    Black/Pardo: observed 13.91%   expected 13.91%
+    Gap (pp):    observed 16.77      expected 16.77
+    Ratio:       observed 2.21      expected 2.21
+
+Saved analytic sample to /Users/miatrifunovic/Downloads/microdados_enem_2019/results/analytic_sample.parquet (N=123,879, 79 columns).
