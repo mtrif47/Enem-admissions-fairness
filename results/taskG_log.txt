@@ -1,0 +1,108 @@
+
+======================================================================
+G1 - CODE INSPECTION (verbatim, before running anything)
+======================================================================
+
+--- modeling.py, topk_within_split (the function Task B5 actually calls) ---
+def topk_within_split(scores: np.ndarray, K: float, seed: int = TIE_BREAK_SEED):
+    """Same tie-breaking convention as common.build_topk, applied to a
+    scores vector already restricted to one split."""
+    from common import build_topk
+    return build_topk(scores, K=K, seed=seed)
+
+--- common.py, build_topk (the actual selection logic; identical copy also lives in task_a_data_prep.py and produces the benchmark) ---
+def build_topk(composite: np.ndarray, K: float, seed: int = TIE_BREAK_SEED):
+    n = len(composite)
+    k = int(np.floor(K * n))
+    if k <= 0:
+        return np.zeros(n, dtype=bool), dict(boundary_value=np.nan, n_tied=0, n_tied_selected=0)
+
+    order = np.argsort(-composite, kind="mergesort")
+    sorted_scores = composite[order]
+    boundary_value = sorted_scores[k - 1]
+
+    strictly_above = composite > boundary_value
+    at_boundary = composite == boundary_value
+
+    n_gt = int(strictly_above.sum())
+    n_tied = int(at_boundary.sum())
+    n_slots_from_tied = k - n_gt
+
+    selected = strictly_above.copy()
+    if n_slots_from_tied > 0:
+        tied_idx = np.flatnonzero(at_boundary)
+        rng = np.random.default_rng(seed)
+        chosen = rng.choice(tied_idx, size=n_slots_from_tied, replace=False)
+        selected[chosen] = True
+
+    tie_info = dict(boundary_value=float(boundary_value), n_tied=n_tied,
+                     n_tied_selected=n_slots_from_tied)
+    return selected, tie_info
+
+--- FINDINGS ---
+1. Selection logic: `strictly_above = composite > boundary_value` selects everyone strictly above the cutoff; `n_slots_from_tied = k - n_gt` is the exact remaining quota; `rng.choice(tied_idx, size=n_slots_from_tied, replace=False)` fills that quota from the tied group WITHOUT REPLACEMENT. The output array `selected` always has exactly k = floor(K*n) True entries -- this is a STRICT quota rule.
+2. Ties ARE broken, by `np.random.default_rng(seed).choice(...)` -- a uniform random draw without replacement over the tied indices at the boundary value.
+3. A seed IS passed: `seed: int = TIE_BREAK_SEED`, and TIE_BREAK_SEED = 20190101 (common.py line 23). `topk_within_split` and every call site in modeling.py use this default, so the model's top-K uses the SAME seed as the benchmark.
+4. It does NOT differ from the benchmark's selection logic. task_a_data_prep.py defines its own build_topk (lines 231-265) which is a byte-for-byte identical implementation (same sort, same `>` / `==` split, same rng.choice quota-fill). common.build_topk is a near-verbatim copy of that original, later imported by modeling.topk_within_split for the model side, and by task_a_data_prep.py's own successors for the benchmark side.
+
+!!! CONTRADICTS THE TASK BACKGROUND !!! The background states the benchmark was "confirmed tie-inclusive (score >= cutoff, all ties admitted), producing excesses of +2/+3/+1 over floor(KN) at K=5/10/20%." That is NOT what this code does, on either side. `build_topk` never admits all ties: it computes `n_slots_from_tied = k - n_gt` and draws EXACTLY that many from the tied group, so the returned selection always has EXACTLY floor(K*N) True entries -- zero excess, by construction, for both the benchmark and the model. Task A's own log confirms this empirically: "Candidates selected overall = 12,387 (should equal 12,387)" at K=10% on the full analytic sample (N=123,879), not 12,387+2 or any other excess. If a tie-inclusive benchmark with observed excess counts exists, it did not come from this codebase's build_topk -- it must be a different computation the user ran separately (e.g., a raw `>=` count), or a mistaken premise. This is reported here rather than silently assumed, per the instruction to quote the actual code rather than paraphrase.
+
+======================================================================
+G2/G3 - TIE MEASUREMENT AT THE K=10% BOUNDARY, 12 PRIMARY CELLS
+======================================================================
+
+n_test=24,776  floor(K*n_test)=2,477
+
+  [B1/logistic_regression] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=3  n_distinct_scores=5487 (of 24,776 test rows)  boundary_value=np.float64(0.18806397235943928)
+    [G3] distinct feature vectors in test=3,978 (of 24,776)  largest identical-score group size=1,020 (score=0.1529446637921805)  boundary falls in largest group=False
+
+  [B1/gradient_boosting] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=42  n_distinct_scores=3921 (of 24,776 test rows)  boundary_value=np.float64(0.19386477719409775)
+    [G3] distinct feature vectors in test=3,978 (of 24,776)  largest identical-score group size=1,232 (score=0.12571827716453154)  boundary falls in largest group=False
+
+  [B2/logistic_regression] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=6  n_distinct_scores=13151 (of 24,776 test rows)  boundary_value=np.float64(0.2074854853507158)
+    [G3] distinct feature vectors in test=10,795 (of 24,776)  largest identical-score group size=150 (score=0.14782633467624506)  boundary falls in largest group=False
+
+  [B2/gradient_boosting] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=54  n_distinct_scores=9175 (of 24,776 test rows)  boundary_value=np.float64(0.22046936642161816)
+    [G3] distinct feature vectors in test=10,795 (of 24,776)  largest identical-score group size=383 (score=0.13531606568003374)  boundary falls in largest group=False
+
+  [B3/logistic_regression] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24775 (of 24,776 test rows)  boundary_value=np.float64(0.27906301863812344)
+
+  [B3/gradient_boosting] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24771 (of 24,776 test rows)  boundary_value=np.float64(0.30905692196541684)
+
+  [B4/logistic_regression] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24775 (of 24,776 test rows)  boundary_value=np.float64(0.2816499511180053)
+
+  [B4/gradient_boosting] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24775 (of 24,776 test rows)  boundary_value=np.float64(0.312572117157085)
+
+  [B5/logistic_regression] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24776 (of 24,776 test rows)  boundary_value=np.float64(0.27859491797140573)
+
+  [B5/gradient_boosting] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24773 (of 24,776 test rows)  boundary_value=np.float64(0.3098664023612532)
+
+  [B6/logistic_regression] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24776 (of 24,776 test rows)  boundary_value=np.float64(0.28110640928837166)
+
+  [B6/gradient_boosting] n_selected=2,477  target=2,477  excess=0  n_tied_at_boundary=1  n_distinct_scores=24772 (of 24,776 test rows)  boundary_value=np.float64(0.3137860238495342)
+
+======================================================================
+G4 - IMPACT CHECK (only for cells with n_tied_at_boundary > 10)
+======================================================================
+
+2 of 12 cells exceed 10 tied candidates at the boundary: B1/gradient_boosting, B2/gradient_boosting
+
+  [B1/gradient_boosting] strict: n=2477 gap=+6.823pp ratio=1.909 D=-4.202pp -> attenuation
+                 tie-inclusive: n=2507 (excess=30) gap=+6.757pp ratio=1.883 D=-4.269pp -> attenuation
+                 verdict changes: False
+
+  [B2/gradient_boosting] strict: n=2477 gap=+7.171pp ratio=1.974 D=-3.855pp -> attenuation
+                 tie-inclusive: n=2484 (excess=7) gap=+7.149pp ratio=1.967 D=-3.877pp -> attenuation
+                 verdict changes: False
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/tie_diagnostic.csv (16 rows).
+
+======================================================================
+PLAIN-LANGUAGE ANSWER
+======================================================================
+
+(i) The model's top-K rule breaks ties by seed: it uses np.random.default_rng(20190101).choice(...) to fill the exact floor(K*N) quota from the tied group, the SAME mechanism and SAME seed as the benchmark -- it is NOT tie-inclusive (it never selects score >= cutoff / never produces excess over floor(K*N)), so the paper's premise of a tie-inclusive benchmark with +2/+3/+1 excess counts does not match what either build_topk implementation in this codebase actually does; that claim needs to be traced to wherever it originated and corrected or re-derived, not attributed to this pipeline.
+
+Largest n_tied_at_boundary observed across the 12 primary cells: 54.
+
+Task G total elapsed: 5s

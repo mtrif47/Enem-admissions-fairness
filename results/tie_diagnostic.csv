@@ -1,0 +1,17 @@
+block,model,K,n_test,k_target,n_selected,excess,n_tied_at_boundary,n_distinct_scores,boundary_value,n_distinct_feature_vectors,largest_score_group_size,largest_score_group_value,boundary_in_largest_group,section,rule,gap_pp,ratio,D,verdict
+B1,logistic_regression,0.1,24776.0,2477.0,2477,0.0,3.0,5487.0,0.18806397235943928,3978.0,1020.0,0.1529446637921805,False,G2_G3,,,,,
+B1,gradient_boosting,0.1,24776.0,2477.0,2477,0.0,42.0,3921.0,0.19386477719409775,3978.0,1232.0,0.12571827716453154,False,G2_G3,,,,,
+B2,logistic_regression,0.1,24776.0,2477.0,2477,0.0,6.0,13151.0,0.2074854853507158,10795.0,150.0,0.14782633467624506,False,G2_G3,,,,,
+B2,gradient_boosting,0.1,24776.0,2477.0,2477,0.0,54.0,9175.0,0.22046936642161816,10795.0,383.0,0.13531606568003374,False,G2_G3,,,,,
+B3,logistic_regression,0.1,24776.0,2477.0,2477,0.0,1.0,24775.0,0.27906301863812344,,,,,G2_G3,,,,,
+B3,gradient_boosting,0.1,24776.0,2477.0,2477,0.0,1.0,24771.0,0.30905692196541684,,,,,G2_G3,,,,,
+B4,logistic_regression,0.1,24776.0,2477.0,2477,0.0,1.0,24775.0,0.2816499511180053,,,,,G2_G3,,,,,
+B4,gradient_boosting,0.1,24776.0,2477.0,2477,0.0,1.0,24775.0,0.312572117157085,,,,,G2_G3,,,,,
+B5,logistic_regression,0.1,24776.0,2477.0,2477,0.0,1.0,24776.0,0.27859491797140573,,,,,G2_G3,,,,,
+B5,gradient_boosting,0.1,24776.0,2477.0,2477,0.0,1.0,24773.0,0.3098664023612532,,,,,G2_G3,,,,,
+B6,logistic_regression,0.1,24776.0,2477.0,2477,0.0,1.0,24776.0,0.28110640928837166,,,,,G2_G3,,,,,
+B6,gradient_boosting,0.1,24776.0,2477.0,2477,0.0,1.0,24772.0,0.3137860238495342,,,,,G2_G3,,,,,
+B1,gradient_boosting,,,,2477,,,,,,,,,G4,strict,6.823209721420103,1.908861136595492,-4.202161376831391,attenuation
+B1,gradient_boosting,,,,2507,,,,,,,,,G4,tie_inclusive,6.75656361076233,1.8829003959016004,-4.2688074874891635,attenuation
+B2,gradient_boosting,,,,2477,,,,,,,,,G4,strict,7.170628518510939,1.9739835776937056,-3.854742579740555,attenuation
+B2,gradient_boosting,,,,2484,,,,,,,,,G4,tie_inclusive,7.1488452298639364,1.9666898304132976,-3.8765258683875574,attenuation

@@ -1,0 +1,61 @@
+
+======================================================================
+TASK M - FULL PER-CELL EXPORT (K1, K2 reused; L run fresh)
+======================================================================
+
+Reused 8 already-computed K1/K2 rows from /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_school.csv (no refit).
+
+----------------------------------------------------------------------
+Task L: TP_ST_CONCLUSAO==2, no added school features
+----------------------------------------------------------------------
+
+Sanity check: Task L population (N=47,340) identical to K1's (N=47,340)? True
+
+======================================================================
+L_TP_ST_CONCLUSAO2_no_school_features: N=47,340 (38.21% of analytic sample)
+======================================================================
+
+  Racial composition -- subsample (N=47,340) vs full analytic sample (N=123,879):
+  Group           Sub N    Sub %   Full %  Diff (pp)
+  White          19,201   40.56%   35.95%     +4.61
+  Black           5,314   11.23%   13.26%     -2.03
+  Pardo          21,376   45.15%   47.85%     -2.70
+  Asian           1,147    2.42%    2.31%     +0.11
+  Indigenous        302    0.64%    0.63%     +0.01
+  Split within subsample (reused from Task B, not redrawn): train=28,406 val=9,449 test=9,485
+  Benchmark recomputed WITHIN subsample (local top-10%): test positives=948, White rate=16.31%, BP rate=5.38%, gap=+10.93pp
+
+  Block B3: base 71 cols, no added features (Task L ablation) = 71 total
+
+  [B3/logistic_regression] overlap@K=0.4947  gap=+14.19pp  ratio=4.56  D=+3.26pp  95%CI(D)=[+1.83,+4.78] -> amplification
+    full-sample comparison: gap=+14.55pp  ratio=4.14  D=+3.52pp  verdict=amplification  MATCHES
+
+  [B3/gradient_boosting] overlap@K=0.4852  gap=+14.18pp  ratio=4.53  D=+3.24pp  95%CI(D)=[+1.88,+4.69] -> amplification
+    full-sample comparison: gap=+14.39pp  ratio=4.06  D=+3.36pp  verdict=amplification  MATCHES
+
+  Block B4: base 76 cols, no added features (Task L ablation) = 76 total
+
+  [B4/logistic_regression] overlap@K=0.4989  gap=+16.62pp  ratio=6.52  D=+5.69pp  95%CI(D)=[+4.33,+7.18] -> amplification
+    full-sample comparison: gap=+16.77pp  ratio=5.38  D=+5.74pp  verdict=amplification  MATCHES
+
+  [B4/gradient_boosting] overlap@K=0.4989  gap=+17.13pp  ratio=7.15  D=+6.20pp  95%CI(D)=[+4.84,+7.76] -> amplification
+    full-sample comparison: gap=+16.14pp  ratio=5.01  D=+5.12pp  verdict=amplification  MATCHES
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_school_full.csv (12 rows).
+
+| Subsample | Block | Model | D | 95% CI | Verdict | overlap@K | gap_pp | ratio | bench_gap_pp |
+|---|---|---|---|---|---|---|---|---|---|
+| K1_TP_ESCOLA | B3 | LR | +3.42pp | [+2.08, +4.90] | amplification | 0.5063 | +14.35pp | 4.64 | +10.93pp |
+| K1_TP_ESCOLA | B3 | HGB | +2.71pp | [+1.42, +4.23] | amplification | 0.5053 | +13.65pp | 4.20 | +10.93pp |
+| K1_TP_ESCOLA | B4 | LR | +5.36pp | [+3.97, +6.85] | amplification | 0.5063 | +16.30pp | 6.12 | +10.93pp |
+| K1_TP_ESCOLA | B4 | HGB | +5.32pp | [+3.98, +6.83] | amplification | 0.5095 | +16.25pp | 6.07 | +10.93pp |
+| K2_school_register | B3 | LR | +2.26pp | [+0.68, +3.84] | inconclusive | 0.5447 | +13.76pp | 4.22 | +11.50pp |
+| K2_school_register | B3 | HGB | +2.22pp | [+0.70, +3.75] | inconclusive | 0.5379 | +13.73pp | 4.21 | +11.50pp |
+| K2_school_register | B4 | LR | +4.64pp | [+3.09, +6.13] | amplification | 0.5461 | +16.14pp | 5.85 | +11.50pp |
+| K2_school_register | B4 | HGB | +3.67pp | [+2.12, +5.14] | amplification | 0.5474 | +15.17pp | 5.12 | +11.50pp |
+| L_TP_ST_CONCLUSAO2_no_school_features | B3 | LR | +3.26pp | [+1.83, +4.78] | amplification | 0.4947 | +14.19pp | 4.56 | +10.93pp |
+| L_TP_ST_CONCLUSAO2_no_school_features | B3 | HGB | +3.24pp | [+1.88, +4.69] | amplification | 0.4852 | +14.18pp | 4.53 | +10.93pp |
+| L_TP_ST_CONCLUSAO2_no_school_features | B4 | LR | +5.69pp | [+4.33, +7.18] | amplification | 0.4989 | +16.62pp | 6.52 | +10.93pp |
+| L_TP_ST_CONCLUSAO2_no_school_features | B4 | HGB | +6.20pp | [+4.84, +7.76] | amplification | 0.4989 | +17.13pp | 7.15 | +10.93pp |
+
+Task M total elapsed: 3s

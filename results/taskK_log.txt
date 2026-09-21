@@ -1,0 +1,68 @@
+
+======================================================================
+TASK K - SCHOOL SUBSAMPLE ROBUSTNESS (B3/B4, K=10%)
+======================================================================
+
+======================================================================
+K1_TP_ESCOLA: N=47,340 (38.21% of analytic sample)
+======================================================================
+
+  Racial composition -- subsample (N=47,340) vs full analytic sample (N=123,879):
+  Group           Sub N    Sub %   Full %  Diff (pp)
+  White          19,201   40.56%   35.95%     +4.61
+  Black           5,314   11.23%   13.26%     -2.03
+  Pardo          21,376   45.15%   47.85%     -2.70
+  Asian           1,147    2.42%    2.31%     +0.11
+  Indigenous        302    0.64%    0.63%     +0.01
+  Split within subsample (reused from Task B, not redrawn): train=28,406 val=9,449 test=9,485
+  Benchmark recomputed WITHIN subsample (local top-10%): test positives=948, White rate=16.31%, BP rate=5.38%, gap=+10.93pp
+
+  Block B3: base 71 cols + 2 school cols (['TP_ESCOLA_2', 'TP_ESCOLA_3']) = 73 total
+
+  [B3/logistic_regression] overlap@K=0.5063  gap=+14.35pp  ratio=4.64  D=+3.42pp  95%CI(D)=[+2.08,+4.90] -> amplification
+    full-sample comparison: gap=+14.55pp  ratio=4.14  D=+3.52pp  verdict=amplification  MATCHES
+
+  [B3/gradient_boosting] overlap@K=0.5053  gap=+13.65pp  ratio=4.20  D=+2.71pp  95%CI(D)=[+1.42,+4.23] -> amplification
+    full-sample comparison: gap=+14.39pp  ratio=4.06  D=+3.36pp  verdict=amplification  MATCHES
+
+  Block B4: base 76 cols + 2 school cols (['TP_ESCOLA_2', 'TP_ESCOLA_3']) = 78 total
+
+  [B4/logistic_regression] overlap@K=0.5063  gap=+16.30pp  ratio=6.12  D=+5.36pp  95%CI(D)=[+3.97,+6.85] -> amplification
+    full-sample comparison: gap=+16.77pp  ratio=5.38  D=+5.74pp  verdict=amplification  MATCHES
+
+  [B4/gradient_boosting] overlap@K=0.5095  gap=+16.25pp  ratio=6.07  D=+5.32pp  95%CI(D)=[+3.98,+6.83] -> amplification
+    full-sample comparison: gap=+16.14pp  ratio=5.01  D=+5.12pp  verdict=amplification  MATCHES
+
+======================================================================
+K2_school_register: N=36,958 (29.83% of analytic sample)
+======================================================================
+
+  Racial composition -- subsample (N=36,958) vs full analytic sample (N=123,879):
+  Group           Sub N    Sub %   Full %  Diff (pp)
+  White          14,481   39.18%   35.95%     +3.24
+  Black           4,160   11.26%   13.26%     -2.00
+  Pardo          17,207   46.56%   47.85%     -1.30
+  Asian             877    2.37%    2.31%     +0.06
+  Indigenous        233    0.63%    0.63%     +0.00
+  Split within subsample (reused from Task B, not redrawn): train=22,155 val=7,419 test=7,384
+  Benchmark recomputed WITHIN subsample (local top-10%): test positives=738, White rate=16.78%, BP rate=5.28%, gap=+11.50pp
+
+  Block B3: base 71 cols + 6 school cols (['TP_DEPENDENCIA_ADM_ESC_1.0', 'TP_DEPENDENCIA_ADM_ESC_2.0', 'TP_DEPENDENCIA_ADM_ESC_3.0', 'TP_DEPENDENCIA_ADM_ESC_4.0', 'TP_LOCALIZACAO_ESC_1.0', 'TP_LOCALIZACAO_ESC_2.0']) = 77 total
+
+  [B3/logistic_regression] overlap@K=0.5447  gap=+13.76pp  ratio=4.22  D=+2.26pp  95%CI(D)=[+0.68,+3.84] -> inconclusive
+    full-sample comparison: gap=+14.55pp  ratio=4.14  D=+3.52pp  verdict=amplification  DIFFERS
+
+  [B3/gradient_boosting] overlap@K=0.5379  gap=+13.73pp  ratio=4.21  D=+2.22pp  95%CI(D)=[+0.70,+3.75] -> inconclusive
+    full-sample comparison: gap=+14.39pp  ratio=4.06  D=+3.36pp  verdict=amplification  DIFFERS
+
+  Block B4: base 76 cols + 6 school cols (['TP_DEPENDENCIA_ADM_ESC_1.0', 'TP_DEPENDENCIA_ADM_ESC_2.0', 'TP_DEPENDENCIA_ADM_ESC_3.0', 'TP_DEPENDENCIA_ADM_ESC_4.0', 'TP_LOCALIZACAO_ESC_1.0', 'TP_LOCALIZACAO_ESC_2.0']) = 82 total
+
+  [B4/logistic_regression] overlap@K=0.5461  gap=+16.14pp  ratio=5.85  D=+4.64pp  95%CI(D)=[+3.09,+6.13] -> amplification
+    full-sample comparison: gap=+16.77pp  ratio=5.38  D=+5.74pp  verdict=amplification  MATCHES
+
+  [B4/gradient_boosting] overlap@K=0.5474  gap=+15.17pp  ratio=5.12  D=+3.67pp  95%CI(D)=[+2.12,+5.14] -> amplification
+    full-sample comparison: gap=+16.14pp  ratio=5.01  D=+5.12pp  verdict=amplification  MATCHES
+
+Saved /Users/miatrifunovic/Downloads/microdados_enem_2019/results/robust_school.csv (18 rows: 8 metrics + 10 composition).
+
+Task K total elapsed: 5s
